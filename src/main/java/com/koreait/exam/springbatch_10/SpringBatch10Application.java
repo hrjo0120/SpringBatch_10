@@ -1,4 +1,4 @@
-package org.koreait.exam.springbatch_10;
+package com.koreait.exam.springbatch_10;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
