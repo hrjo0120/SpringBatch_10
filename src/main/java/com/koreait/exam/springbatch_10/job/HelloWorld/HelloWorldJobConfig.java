@@ -59,6 +59,13 @@ public class HelloWorldJobConfig   {
     public Tasklet helloWorldStep2Tasklet() {
         return (stepContribution, chunkContext) -> {
             System.out.println("헬로월드 222222222222!!!");
+
+            // 테스트용으로 실패시키기
+            // 하나라도 실패하면 그 Job은 실패한 잡이 되는 것
+            if(true){
+                throw new Exception("실패 : 헬로월드 태스클릿 2 실패");
+            }
+
             return RepeatStatus.FINISHED;
         };
     }
