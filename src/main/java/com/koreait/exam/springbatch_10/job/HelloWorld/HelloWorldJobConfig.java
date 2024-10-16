@@ -22,7 +22,7 @@ public class HelloWorldJobConfig   {
     @Bean // 프로그램 시작 시 태어남
     public Job helloWorldJob() {
         return jobBuilderFactory.get("helloWorldJob")
-                .incrementer(new RunIdIncrementer()) // 강제로 매번 다른 ID를 실행할 때 파라미터로 부여
+//                .incrementer(new RunIdIncrementer()) // 강제로 매번 다른 ID를 실행할 때 파라미터로 부여
                 .start(helloWorldStep1())
                 .next(helloWorldStep2())
                 .build();
@@ -62,7 +62,7 @@ public class HelloWorldJobConfig   {
 
             // 테스트용으로 실패시키기
             // 하나라도 실패하면 그 Job은 실패한 잡이 되는 것
-            if(true){
+            if(false){
                 throw new Exception("실패 : 헬로월드 태스클릿 2 실패");
             }
 
