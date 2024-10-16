@@ -5,9 +5,12 @@ spring:
     jdbc:
       initialize-schema: ALWAYS
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/SpringBatch_10?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    ur l: jdbc:mariadb://127.0.0.1:3306/SpringBatch_10?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
     driver-class-name:
     username: root
     password:
   jpa:
     show-sql: true
+logging:
+  level:
+    com.koreait.exam.springbatch_10: debug
