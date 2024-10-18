@@ -3,6 +3,7 @@ package com.koreait.exam.springbatch_10.app.base;
 import com.koreait.exam.springbatch_10.app.cart.service.CartService;
 import com.koreait.exam.springbatch_10.app.member.entity.Member;
 import com.koreait.exam.springbatch_10.app.member.service.MemberService;
+import com.koreait.exam.springbatch_10.app.order.entity.Order;
 import com.koreait.exam.springbatch_10.app.order.service.OrderService;
 import com.koreait.exam.springbatch_10.app.product.entity.Product;
 import com.koreait.exam.springbatch_10.app.product.entity.ProductOption;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 public class DevInitData {
 
     @Bean
-    public CommandLineRunner initData(MemberService memberService, ProductService productService, CartService cartService, OrderService orderService)  {
+    public CommandLineRunner initData(MemberService memberService, ProductService productService, CartService cartService, OrderService orderService) {
         return args -> {
             String password = "{noop}1234";
             Member member1 = memberService.join("user1", password, "user1@test.com");
@@ -28,11 +29,14 @@ public class DevInitData {
             Member member4 = memberService.join("user4", password, "user4@test.com");
 
             // 만원 충전
-            memberService.addCash(member1,10_000,"충전_무통장입금");
+            memberService.addCash(member1, 10_000, "충전_무통장입금");
             // 2만원 충전
-            memberService.addCash(member1,20_000,"충전_무통장입금");
+            memberService.addCash(member1, 20_000, "충전_무통장입금");
             // 5천원 사용
-            memberService.addCash(member1,-5_000,"출금_일반");
+            memberService.addCash(member1, -5_000, "출금_일반");
+
+            // 30만원 충전
+            memberService.addCash(member1, 300_000, "충전_무통장입금");
 
             long restCash = memberService.getRestCash(member1);
 
@@ -58,7 +62,13 @@ public class DevInitData {
             cartService.addItem(member1, productOption__RED_95, 2); // productOption__RED_95 총 수량 3
             cartService.addItem(member1, productOption__BLUE_95, 1); //productOption__BLUE_95  총 수량 1
 
-            orderService.createFromCart(member1);
+            Order order1 = orderService.createFromCart(member1);
+
+            int order1PayPrice = order1.calculatePayPrice();
+            System.out.println("order1 pay price: " + order1PayPrice);
+
+            orderService.payByRestCashOnly(order1);
+
         };
     }
 }
