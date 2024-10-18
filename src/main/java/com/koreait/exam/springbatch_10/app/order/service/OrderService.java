@@ -81,6 +81,15 @@ public class OrderService {
 
         orderRepository.save(order);
     }
+
+    @Transactional
+    public void refund(Order order) {
+        int payPrice = order.getPayPrice();
+        memberService.addCash(order.getMember(), payPrice, "주문환불_예치금환불");
+
+        order.setRefundDone();
+        orderRepository.save(order);
+    }
 }
 
 // @Transactional(readOnly = true) : 스프링에서 트랜잭션 관리에 사용되는 어노테이션
