@@ -12,6 +12,8 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import java.time.LocalDateTime;
+
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -25,6 +27,9 @@ public class OrderItem extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @ToString.Exclude
     private Order order;
+
+    // 결제일
+    private LocalDateTime payDate;
 
     @ManyToOne(fetch = LAZY)
     private ProductOption productOption;
@@ -53,9 +58,11 @@ public class OrderItem extends BaseEntity {
         return salePrice * quantity;
     }
 
+    // 결제 시 저장
     public void setPaymentDone() {
         this.payPrice = calculatePayPrice();
         this.isPaid = true;
+        this.payDate = LocalDateTime.now();
     }
 
     public void setRefundDone() {

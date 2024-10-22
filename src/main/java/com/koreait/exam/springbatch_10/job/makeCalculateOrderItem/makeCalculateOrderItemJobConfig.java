@@ -71,9 +71,9 @@ public class makeCalculateOrderItemJobConfig {
         return new RepositoryItemReaderBuilder<OrderItem>()
                 .name("orderItemReader")
                 .repository(orderItemRepository)
-                .methodName("findAllByIdBetween")
+                .methodName("findAllByIdPaid")
                 .pageSize(100)
-                .arguments(Arrays.asList(fromId, toId))
+                .arguments(Arrays.asList(true))
                 .sorts(Collections.singletonMap("id", Sort.Direction.ASC))
                 .build();
     }

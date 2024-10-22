@@ -39,12 +39,13 @@ public class DevInitData {
 
                         cartService.addItem(member, productOption, i + 1);
                     }
-                    return orderService.createFromCart(member);
+                    return orderService.createFromCart(member); // 장바구니에서 주문데이터로 넘김
                 }
             }
 
             Helper helper = new Helper();
-
+            // 주문의 전제조건: 회원이 있어야하고, 돈이 있어야함, 상품은 미리 준비되어있어야함.
+            // 장바구니에 상품을 담고, 상품의 옵션을 뽑아 회원이 어떤 주문을 했는가
             String password = "{noop}1234";
             Member member1 = memberService.join("user1", password, "user1@test.com");
             Member member2 = memberService.join("user2", password, "user2@test.com");
@@ -115,7 +116,10 @@ public class DevInitData {
 
             Order order4 = helper.order(member1, Arrays.asList(product1Option__RED_95, product2Option__WHITE_95));
 
-            orderService.payByRestCashOnly(order4);
+            orderService.payByRestCashOnly(order4); // 돈을 내는 행위
+
+            Order order5 = helper.order(member1, Arrays.asList(product1Option__RED_95, product2Option__WHITE_95));  //장바구니에서 주문해야지로 넘어간 것
+
         };
     }
 }
