@@ -29,11 +29,12 @@ public class Util {
             return convertedDate.getDayOfMonth();
         }
 
-        public static LocalDateTime parse(String pattern, String texttDate) {
-            return LocalDateTime.parse(texttDate, DateTimeFormatter.ofPattern(pattern));
+        public static LocalDateTime parse(String pattern, String textDate) {
+            return LocalDateTime.parse(textDate, DateTimeFormatter.ofPattern(pattern));
         }
 
-
+        public static LocalDateTime parse(String textDate) {
+            return parse("yyyy-MM-dd HH:mm:ss.SSSSSS", textDate);
+        }
     }
-
 }
